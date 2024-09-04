@@ -1,4 +1,8 @@
+
+import { log } from "console";
+import { index } from "drizzle-orm/mysql-core";
 import Link from "next/link";
+import { db } from "~/server/db";
 
 const mockUrls=[
   "https://utfs.io/f/802a8b3f-943d-4cc6-85c2-fdd9408340a1-pjusa3.png",
@@ -9,13 +13,21 @@ const mockImages=mockUrls.map((url, index)=>({
  id: index + 1,
  url,
 }
-))
-export default function HomePage() {
+));
+export default async function HomePage() {
+
+  const posts = await db.query.posts.findMany();
+
+  console.log(posts);
   return (
     <main className="">
-      <div className="flex flex-wrap gap-4">{
+      <div className="flex flex-wrap gap-4">
+      {posts.map((posts) =>(
+          <div key={posts.id}>{posts.name}</div>
+        ))}
+        {
         [...mockImages,...mockImages,...mockImages].map((image)=>(
-          <div key={(image.id)} className="w-48">
+          <div key={(image.id+"-"+index)} className="w-48">
             <img src={image.url} alt="text" />
           </div>
         ))
