@@ -4,6 +4,7 @@ import { desc } from "drizzle-orm";
 import { index } from "drizzle-orm/mysql-core";
 import Link from "next/link";
 import { db } from "~/server/db";
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 export const dynamic="force-dynamic";
 // const mockUrls=[
 //   "https://utfs.io/f/802a8b3f-943d-4cc6-85c2-fdd9408340a1-pjusa3.png",
@@ -15,15 +16,32 @@ export const dynamic="force-dynamic";
 //  url,
 // }
 // ));
-export default async function HomePage() {
-
+async function Images(){
   const images = await db.query.images.findMany({
-   orderBy: (model, {desc}) => desc(model.id), 
-  });
-
-
+    orderBy: (model, {desc}) => desc(model.id), 
+   });
+   return(
+    <div className="flex flex-wrap gap-4">
+{
+          [...images,...images,...images].map((image, index)=>(
+               <div key={(image.id+"-"+index)} className="w-48">
+                <img src={image.url} alt="text" />
+                <div>{image.name}</div>
+              </div>
+            ))
+        }
+    </div>
+   )
+}
+export default async function HomePage() {
   return (
     <main className="">
+      <SignedOut>
+        <div className="w-full h-full text-2xl text-center">Please Sign In</div>
+      </SignedOut>
+      <SignedIn>
+        <Images />
+      </SignedIn>
       <div className="flex flex-wrap gap-4">
       {/* {posts.map((posts) =>(
           <div key={posts.id}>{posts.name}</div>
@@ -33,14 +51,7 @@ export default async function HomePage() {
           <img src={image.url} alt="{image.name}" />
           </div>
         ))} */}
-        {
-          [...images,...images,...images].map((image, index)=>(
-               <div key={(image.id+"-"+index)} className="w-48">
-                <img src={image.url} alt="text" />
-                <div>{image.name}</div>
-              </div>
-            ))
-        }
+        
         {/* {
         // [...mockImages,...mockImages,...mockImages].map((image)=>(
         //   <div key={(image.id+"-"+index)} className="w-48">
@@ -50,7 +61,6 @@ export default async function HomePage() {
        
       } */}
       </div>
-      Hello (gallery in progress)
     </main>
   );
 }
