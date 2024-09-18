@@ -6,7 +6,7 @@
 - [*] Actually set up a database
 - [*] Attach database to UI
 - [*] Add Authentication (w/ clerk)
-- [ ] Add image upload
+- [*] Add image upload
 - [ ] Fix server taint
 - [ ] Use Next/Image component
 - [ ] Error Management(w/ Sentry)

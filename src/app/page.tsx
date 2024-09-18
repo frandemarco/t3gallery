@@ -3,7 +3,8 @@ import { log } from "console";
 import { desc } from "drizzle-orm";
 import { index } from "drizzle-orm/mysql-core";
 import Link from "next/link";
-import { db } from "~/server/db";
+import { db } from "~/server/db"
+import {getMyImages} from "~/server/queries";
 import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 export const dynamic="force-dynamic";
 // const mockUrls=[
@@ -17,9 +18,7 @@ export const dynamic="force-dynamic";
 // }
 // ));
 async function Images(){
-  const images = await db.query.images.findMany({
-    orderBy: (model, {desc}) => desc(model.id), 
-   });
+  const images = await getMyImages();
    return(
     <div className="flex flex-wrap gap-4">
 {
