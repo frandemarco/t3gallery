@@ -7,8 +7,8 @@
 - [*] Attach database to UI
 - [*] Add Authentication (w/ clerk)
 - [*] Add image upload
-- [ ] Fix server taint
-- [ ] Use Next/Image component
+- [*] Fix server taint
+- [*] Use Next/Image component
 - [ ] Error Management(w/ Sentry)
 - [ ] Routing/image page (parallel route)
 - [ ] Delete Button (w/ server actions)

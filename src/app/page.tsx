@@ -4,8 +4,10 @@ import { desc } from "drizzle-orm";
 import { index } from "drizzle-orm/mysql-core";
 import Link from "next/link";
 import { db } from "~/server/db"
+import Image from "next/image";
 import {getMyImages} from "~/server/queries";
 import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
+import { object } from "zod";
 export const dynamic="force-dynamic";
 // const mockUrls=[
 //   "https://utfs.io/f/802a8b3f-943d-4cc6-85c2-fdd9408340a1-pjusa3.png",
@@ -20,11 +22,11 @@ export const dynamic="force-dynamic";
 async function Images(){
   const images = await getMyImages();
    return(
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-wrap justify-center gap-4">
 {
           images.map((image)=>(
-               <div key={(image.id)} className="w-48">
-                <img src={image.url} alt="text" />
+               <div key={(image.id)} className=" flex w-48 flex-col">
+                <Image src={image.url}  style={{objectFit: "contain"}} width={480} height={480} alt={image.name} />
                 <div>{image.name}</div>
               </div>
             ))
