@@ -1,14 +1,13 @@
-
 import { log } from "console";
 import { desc } from "drizzle-orm";
 import { index } from "drizzle-orm/mysql-core";
 import Link from "next/link";
-import { db } from "~/server/db"
+import { db } from "~/server/db";
 import Image from "next/image";
-import {getMyImages} from "~/server/queries";
-import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
+import { getMyImages } from "~/server/queries";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { object } from "zod";
-export const dynamic="force-dynamic";
+export const dynamic = "force-dynamic";
 // const mockUrls=[
 //   "https://utfs.io/f/802a8b3f-943d-4cc6-85c2-fdd9408340a1-pjusa3.png",
 //   "https://utfs.io/f/1744bdc6-220d-47c0-a911-8a774592d23c-cgjhqk.png",
@@ -19,40 +18,47 @@ export const dynamic="force-dynamic";
 //  url,
 // }
 // ));
-async function Images(){
+async function Images() {
   const images = await getMyImages();
-   return(
+  return (
     <div className="flex flex-wrap justify-center gap-4">
-{
-          images.map((image)=>(
-               <div key={(image.id)} className=" flex w-48 flex-col">
-                <Image src={image.url}  style={{objectFit: "contain"}} width={480} height={480} alt={image.name} />
-                <div>{image.name}</div>
-              </div>
-            ))
-        }
+      {images.map((image) => (
+        <div key={image.id} className="flex w-48 flex-col">
+         <Link href={`/img/${image.id}`}>
+          <Image
+            src={image.url}
+            style={{ objectFit: "contain" }}
+            width={480}
+            height={480}
+            alt={image.name}
+          />
+          </Link>
+          <div>{image.name}</div>
+        
+        </div>
+      ))}
     </div>
-   )
+  );
 }
 export default async function HomePage() {
   return (
     <main className="">
       <SignedOut>
-        <div className="w-full h-full text-2xl text-center">Please Sign In</div>
+        <div className="h-full w-full text-center text-2xl">Please Sign In</div>
       </SignedOut>
       <SignedIn>
         <Images />
       </SignedIn>
       <div className="flex flex-wrap gap-4">
-      {/* {posts.map((posts) =>(
+        {/* {posts.map((posts) =>(
           <div key={posts.id}>{posts.name}</div>
         ))} */}
-         {/* {images.map((image)=>(
+        {/* {images.map((image)=>(
           <div key={image.id} className="w-48">
           <img src={image.url} alt="{image.name}" />
           </div>
         ))} */}
-        
+
         {/* {
         // [...mockImages,...mockImages,...mockImages].map((image)=>(
         //   <div key={(image.id+"-"+index)} className="w-48">

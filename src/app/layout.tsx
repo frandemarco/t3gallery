@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 import "@uploadthing/react/styles.css";
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { TopNav } from "./_components/topnav";
@@ -24,11 +24,14 @@ export const metadata: Metadata = {
 // }
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal,
+}: Readonly<{ children: React.ReactNode;
+              modal: React.ReactNode;
+}>) {
   return (
     <ClerkProvider>
-    <html lang="en" >
-    <NextSSRPlugin
+      <html lang="en">
+        <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs
            * from the router to prevent additional information from being
@@ -37,8 +40,11 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-      <body className={`flex flex-col gap-4 font-sans ${GeistSans.variable}`}> <TopNav /> {children}</body>
-    </html>
+        <body className={`flex flex-col gap-4 font-sans ${GeistSans.variable}`}>
+          {" "}
+          <TopNav /> {children} {modal}
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
