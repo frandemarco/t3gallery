@@ -42,7 +42,10 @@ export default function RootLayout({
         />
         <body className={`flex flex-col gap-4 font-sans ${GeistSans.variable}`}>
           {" "}
-          <TopNav /> {children} {modal}
+          <TopNav />
+           {children} 
+           {modal}
+           <div id="modal-root"></div>
         </body>
       </html>
     </ClerkProvider>
