@@ -2,7 +2,7 @@
 //import { getImage } from "~/server/queries";
 import FullPageImageView from '~/components/full-image-page';
 
-export default function PhotoPage({
+export default function PhotoModal({
   params: { id: photoId },
 }: {
   params: { id: string };
@@ -10,8 +10,8 @@ export default function PhotoPage({
   const idAsNumber=Number(photoId);
   if(Number.isNaN(idAsNumber)) throw new Error("Invaild photo id");
   return (
-  
+    <div className="h-full">
     <FullPageImageView id={idAsNumber} />
-
+    </div>
   );
 }
