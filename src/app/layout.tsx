@@ -26,8 +26,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   modal,
-}: Readonly<{ children: React.ReactNode;
-              modal: React.ReactNode;
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <ClerkProvider>
@@ -43,12 +44,12 @@ export default function RootLayout({
         />
         <body className={`flex flex-col gap-4 font-sans ${GeistSans.variable} dark`}>
           <div className="grid h-screen grid-rows-[auto,1fr]">
-          <TopNav />
-          <main className="overflow-y-scroll"> {children} </main>
-           </div>
-           {modal}
-           <div id="modal-root"></div>
-           <Toaster />
+            <TopNav />
+            <main className="overflow-y-scroll"> {children} </main>
+          </div>
+          {modal}
+          <div id="modal-root"></div>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

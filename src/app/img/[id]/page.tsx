@@ -7,11 +7,11 @@ export default function PhotoModal({
 }: {
   params: { id: string };
 }) {
-  const idAsNumber=Number(photoId);
-  if(Number.isNaN(idAsNumber)) throw new Error("Invaild photo id");
+  const idAsNumber = Number(photoId);
+  if (Number.isNaN(idAsNumber)) throw new Error("Invaild photo id");
   return (
     <div className="h-full">
-    <FullPageImageView id={idAsNumber} />
+      <FullPageImageView id={idAsNumber} />
     </div>
   );
 }
