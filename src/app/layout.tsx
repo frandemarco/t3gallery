@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 import "@uploadthing/react/styles.css";
+import { CSPostHogProvider } from './_analytics/provider'
 import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
@@ -8,6 +9,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { Toaster } from "~/components/ui/sonner";
+
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -32,6 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
+       <CSPostHogProvider>
       <html lang="en">
         <NextSSRPlugin
           /**
@@ -52,6 +55,7 @@ export default function RootLayout({
           <Toaster />
         </body>
       </html>
+      </CSPostHogProvider>
     </ClerkProvider>
   );
 }
