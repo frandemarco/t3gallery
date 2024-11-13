@@ -75,6 +75,11 @@ export function SimpleUploadButton() {
                         id: "upload-begin"
                     });
             },
+            onUploadError(error){
+                posthog.capture("upload error", {error});
+                toast.dismiss("upload begin");
+                toast.error("Upload failed! Wait and try again later.")
+            },
             onClientUploadComplete(res) {
                 toast.dismiss("upload-begin");
                 toast("Upload Complete");

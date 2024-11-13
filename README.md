@@ -14,9 +14,9 @@
 - [*] Fix server taint
 - [*] Use Next/Image components
 - [*] Error Management(w/ Sentry)
-- [ ] Routing/image page (parallel route)
+- [*] Routing/image page (parallel route)
 - [ ] Delete Button (w/ server actions)
-- [ ] analytics (posthog)
+- [*] analytics (posthog)
 - [ ] ratelimiting (upstash)
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
