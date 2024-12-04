@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import "server-only";
 import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
-import { images } from "./db/schema";
+import { albums, images } from "./db/schema";
 import { and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -14,6 +14,18 @@ export async function getMyImages() {
   if (!user.userId) throw new Error("Unauthorized");
   const images = await db.query.images.findMany({
     where: (model, { eq }) => eq(model.userId, user.userId),
+    orderBy: (model, { desc }) => desc(model.id),
+  });
+  return images;
+}
+export async function getMyImagesByAlbum(albumId: number){
+  const user = auth();
+  if (!user.userId) throw new Error("Unauthorized");
+  const images = await db.query.images.findMany({
+    where: (model, { eq, and }) => and(
+      eq(model.userId, user.userId),
+      eq(model.albumId, albumId)
+  ),
     orderBy: (model, { desc }) => desc(model.id),
   });
   return images;
@@ -39,4 +51,28 @@ export async function deleteImage(id:number) {
     }
   })
  redirect("../");
+}
+export async function getAlbumFirstImage() {
+  const user = auth();
+  if (!user.userId) throw new Error("Unauthorized");
+  const albumImages=db.query.albums.findMany({
+    columns:{
+      id:true,
+      name:true,
+    },
+    with:{
+      images:{
+        columns:{
+          url:true,
+        },
+        limit:1,
+        orderBy: (images, { desc }) => desc(images.id),
+      },
+    }
+  }).then(albums=>albums.map(album=>({
+    id: album.id,
+    name: album.name,
+    firstImage: album.images[0]?.url 
+  })));
+  return albumImages;
 }
