@@ -2,7 +2,7 @@
 
  This is a project that I have begun working on to start learning Next.js, React, and PostgreSQL. I also used this to learn how to connect to Clerk for authentication, Vercel for CI/CD, and Sentry for error management. I am still currently working on this project and have a todo list below that have the features implemented and the features I am going to add in the future. As I am submitting this project, I am  working on implementing parallel routes so that images can be loaded into a modal but also accessible through their own page. 
 
-vercel link to working product
+vercel link to working product https://t3gallery-bor2xeon0-francesco-demarcos-projects.vercel.app/
 
 ## TODO
 
